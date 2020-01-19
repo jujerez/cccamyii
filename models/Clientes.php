@@ -34,6 +34,7 @@ class Clientes extends \yii\db\ActiveRecord
             [['nombre', 'telefono'], 'required'],
             [['nombre', 'direccion', 'nota'], 'string', 'max' => 255],
             [['telefono'], 'string', 'max' => 9],
+            [['nota', 'direccion'],'default', 'value' => null],
         ];
     }
 
