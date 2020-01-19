@@ -33,7 +33,7 @@ class Clientes extends \yii\db\ActiveRecord
         return [
             [['nombre', 'telefono'], 'required'],
             [['nombre', 'direccion', 'nota'], 'string', 'max' => 255],
-            [['telefono'], 'string', 'max' => 9],
+            [['telefono'], 'string', 'max' => 9, 'min' => 9],
             [['nota', 'direccion'],'default', 'value' => null],
         ];
     }

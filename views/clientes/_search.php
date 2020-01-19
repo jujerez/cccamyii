@@ -15,8 +15,7 @@ use yii\bootstrap4\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
-
+    
     <?= $form->field($model, 'nombre') ?>
 
     <?= $form->field($model, 'telefono') ?>
