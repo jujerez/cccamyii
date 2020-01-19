@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Clines;
+use app\models\Clientes;
 use app\models\ClinesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -72,7 +73,16 @@ class ClinesController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'listaClientes' => $this->listaClientes(),
         ]);
+    }
+
+    private function listaClientes()
+    {
+        return array_merge([''], Clientes::find()
+            ->select('nombre')
+            ->indexBy('id')
+            ->column());
     }
 
     /**
@@ -92,6 +102,7 @@ class ClinesController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'listaClientes' => $this->listaClientes(),
         ]);
     }
 
