@@ -15,7 +15,6 @@ use yii\bootstrap4\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
 
     <?= $form->field($model, 'servidor') ?>
 
@@ -25,9 +24,9 @@ use yii\bootstrap4\ActiveForm;
 
     <?= $form->field($model, 'password') ?>
 
-    <?php // echo $form->field($model, 'fecha_alta') ?>
+    <?php echo $form->field($model, 'fecha_alta') ?>
 
-    <?php // echo $form->field($model, 'cliente_id') ?>
+    <?php  echo $form->field($model, 'cliente_id') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
