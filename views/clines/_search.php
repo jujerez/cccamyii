@@ -26,7 +26,7 @@ use yii\bootstrap4\ActiveForm;
 
     <?php echo $form->field($model, 'fecha_alta') ?>
 
-    <?php  echo $form->field($model, 'cliente_id') ?>
+    <?php // echo $form->field($model, 'cliente_id') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
