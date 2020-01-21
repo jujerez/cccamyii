@@ -8,6 +8,7 @@ $this->title = 'My Yii Application';
 
     <div class="jumbotron">
         <h1>Congratulations!</h1>
+        <?= \app\widgets\ButtonWidgets::widget(['texto' => 'clikeame'])?>
 
         <p class="lead">You have successfully created your Yii-powered application.</p>
 

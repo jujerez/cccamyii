@@ -47,6 +47,17 @@ $config = [
             ],
             */
         ],
+        'view' => [
+
+            'theme' => [
+                'basePath' => '@app/themes/sbclean',
+                'baseUrl' => '@web/themes/sbclean',
+                'pathMap' => [
+                    '@app/views' => '@app/themes/sbclean',
+                ],
+            ],
+
+        ],
         'log' => $log,
         'db' => $db,
         'formatter' => [
