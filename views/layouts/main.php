@@ -29,7 +29,7 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name,
+        'brandLabel' => Html::img('@web/images/logo.png', ['alt'=>Yii::$app->name,'style'=>['height'=>'40px']]),
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-dark bg-dark navbar-expand-md fixed-top',
@@ -59,6 +59,8 @@ AppAsset::register($this);
         ],
     ]);
     NavBar::end();
+
+
     ?>
 
     <div class="container">
@@ -70,9 +72,9 @@ AppAsset::register($this);
     </div>
 </div>
 
-<footer class="footer">
+<footer class="footer bg-dark">
     <div class="container">
-        <p class="float-left">&copy; My Company <?= date('Y') ?></p>
+        <p class="float-left">&copy; Cccam service <?= date('Y') ?></p>
 
         <p class="float-right"><?= Yii::powered() ?></p>
     </div>

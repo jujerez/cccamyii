@@ -1,5 +1,7 @@
 <?php
 
+use yii\helpers\Url;
+
 /* @var $this yii\web\View */
 
 $this->title = 'My Yii Application';
@@ -7,10 +9,11 @@ $this->title = 'My Yii Application';
 <div class="site-index">
 
     <div class="jumbotron">
-        <h1>Congratulations!</h1>
-        <?= \app\widgets\ButtonWidgets::widget(['texto' => 'clikeame'])?>
+        <h1>Gestiona tus clientes y cccam!</h1>
+        
+        <img src=<?= Url::to('@web/images/parabolica.png') ?>  alt="parabolica">
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
+        <p class="lead">Con esta aplicación puedes gestionar todos tus clientes y las cccam asociadas a cada cliente.</p>
 
         <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
     </div>
