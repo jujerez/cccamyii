@@ -104,3 +104,7 @@ a.desc:after {
 .jumbotron img {
     width: 150px;
 }
+
+.jumbotron h1::before {
+    content: url('../images/antena.png');
+}
