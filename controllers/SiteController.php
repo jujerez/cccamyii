@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\SaludarForm;
 
 class SiteController extends Controller
 {
@@ -124,5 +125,19 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    public function actionSaludar() 
+    {
+        $model = new SaludarForm();
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
+            return $this->render('saludar-mostrar', ['model' => $model]);
+            //return $this->redirect(['site/index']);
+        } else {
+            // la página es mostrada inicialmente o hay algún error de validación
+            return $this->render('saludar', ['model' => $model]);
+        }
     }
 }

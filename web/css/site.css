@@ -108,3 +108,9 @@ a.desc:after {
 .jumbotron h1::before {
     content: url('../images/antena.png');
 }
+
+/*.borde-sombreado {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}*/
+.borde-sombreado{ box-shadow: 0 0 4px 0 rgba(0,0,0,.08), 0 2px 4px 0 rgba(0,0,0,.12);}
