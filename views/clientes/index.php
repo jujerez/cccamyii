@@ -3,6 +3,7 @@
 use yii\bootstrap4\Html;
 use yii\grid\GridView;
 
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ClientesSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -19,6 +20,8 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php Yii::debug($dataProvider);?>
+   
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

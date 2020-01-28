@@ -58,16 +58,18 @@ class ClinesSearch extends Clines
         }
 
         // grid filtering conditions
+        $nombre = Clientes::findOne($this->cliente_id);
         $query->andFilterWhere([
             'id' => $this->id,
             'puerto' => $this->puerto,
             'fecha_alta' => $this->fecha_alta,
-            'cliente_id' => $this->cliente_id,
+            'cliente_id' => $nombre ,
         ]);
 
         $query->andFilterWhere(['ilike', 'servidor', $this->servidor])
             ->andFilterWhere(['ilike', 'usuario', $this->usuario])
-            ->andFilterWhere(['ilike', 'password', $this->password]);
+            ->andFilterWhere(['ilike', 'password', $this->password])
+            ->andFilterWhere(['ilike', 'cliente', $nombre]);
 
         return $dataProvider;
     }

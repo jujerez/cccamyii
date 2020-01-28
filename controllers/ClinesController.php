@@ -42,6 +42,7 @@ class ClinesController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'listaClientes' => $this->listaClientes(),
         ]);
     }
 
