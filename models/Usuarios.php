@@ -11,20 +11,16 @@ use yii\web\IdentityInterface;
  * @property int $id
  * @property string $nombre
  * @property string $password
- * @property string $auth_key
- * @property string $token_acti
- * @property string $token_clave
- * @property string $auth_key
- 
+ * @property string|null $email
+ * @property string|null $auth_key
+ * @property string|null $token_acti
+ * @property string|null $token_clave
  */
 class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
 {
-
     const SCENARIO_CREAR = 'crear';
     const SCENARIO_MODIFICAR = 'modificar';
-
     public $password_repeat;
-
     /**
      * {@inheritdoc}
      */
@@ -39,13 +35,15 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['nombre', 'password'], 'required', 'on' => self::SCENARIO_DEFAULT],
-            [['nombre', 'auth_key','token_acti', 'token_clave' ], 'string', 'max' => 255],
+           
+            [['nombre', 'password'], 'required', 'on' =>  self::SCENARIO_DEFAULT],
+            [['nombre', 'auth_key', 'token_acti', 'token_clave'], 'string', 'max' => 255],
             [['password'], 'string', 'max' => 60],
             [['nombre', 'email'], 'unique'],
-            [['password_repeat'], 'required', 'on' => self::SCENARIO_CREAR],
             [['email'], 'required', 'on' => self::SCENARIO_CREAR],
             [['email'], 'email'],
+
+           
             [['password_repeat'],'required','on' => self::SCENARIO_CREAR],
             [['password_repeat'],
                 'compare',
@@ -78,7 +76,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     }
     /**
      * Metodo para logueo de servicios 
-     */
+    */
     public static function findIdentityByAccessToken($token, $type = null)
     {
     }
@@ -92,21 +90,21 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return $this->auth_key;
     }
-
-    /** Para logueo con cookies */
-    public function validateAuthKey($authKey)
-    {
-        return $this->auth_key === $authKey;
-    }
-    /** FIN  Implementación de metodos de la interface */
-
-
-
+ 
+     /** Para logueo con cookies */
+     public function validateAuthKey($authKey)
+     {
+         return $this->auth_key === $authKey;
+     }
+     /** FIN  Implementación de metodos de la interface */
+ 
+ 
+ 
     public static function findPorNombre($nombre)
     {
         return static::findOne(['nombre' => $nombre]);
     }
-
+ 
     public function validatePassword($password)
     {
         return Yii::$app->security->validatePassword($password, $this->password);
@@ -114,11 +112,11 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
 
     public function beforeSave($insert)
     {
+        $security = Yii::$app->security;
+        
         if (!parent::beforeSave($insert)) {
             return false;
         }
-
-        $security = Yii::$app->security;
 
         if ($insert) {
             if ($this->scenario === self::SCENARIO_CREAR) {
@@ -133,8 +131,8 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
                     $this->password = $security->generatePasswordHash($this->password);
                 }
             }
-
-            return true;
         }
+
+        return true;
     }
 }
