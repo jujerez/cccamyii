@@ -67,7 +67,12 @@ AppAsset::register($this);
                         !(Yii::$app->user->isGuest) 
                         ? (['label' => 'Ver mis Datos', 'url' => ['usuarios/view', 'id' => Yii::$app->user->identity->id],])
                         : '',
-                ]
+
+                        !(Yii::$app->user->isGuest) && (Yii::$app->user->identity->nombre === 'admin')
+                        ? (['label' => 'Ver todos los usuarios', 'url' => ['usuarios/index'],])
+                        : '',
+                    ],
+                  
             ],
 
         ],

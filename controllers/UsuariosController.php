@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Usuarios;
+use app\models\UsuariosSearch;
 use Yii;
 use yii\bootstrap4\Alert;
 use yii\filters\AccessControl;
@@ -26,7 +27,34 @@ class UsuariosController extends Controller
                     // everything else is denied by default
                 ],
             ],
+
+            'access' => [
+                'class' => AccessControl::class,
+                'only' => ['index'],
+                'rules' => [
+                    // allow authenticated users
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule, $function){
+                            return Yii::$app->user->identity->nombre === 'admin';
+                        } 
+                    ],
+                    // everything else is denied by default
+                ],
+            ],
         ];
+    }
+
+    public function actionIndex()
+    {
+        $searchModel = new UsuariosSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     public function actionRegistrar()
