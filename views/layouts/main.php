@@ -61,7 +61,11 @@ AppAsset::register($this);
                         : '',
 
                         !(Yii::$app->user->isGuest) 
-                        ? (['label' => 'Modificar Datos', 'url' => ['usuarios/update']])
+                        ? (['label' => 'Modificar mis Datos', 'url' => ['usuarios/update']])
+                        : '',
+
+                        !(Yii::$app->user->isGuest) 
+                        ? (['label' => 'Ver mis Datos', 'url' => ['usuarios/view', 'id' => Yii::$app->user->identity->id],])
                         : '',
                 ]
             ],

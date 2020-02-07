@@ -7,6 +7,7 @@ use Yii;
 use yii\bootstrap4\Alert;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 
 class UsuariosController extends Controller
 {
@@ -69,6 +70,23 @@ class UsuariosController extends Controller
             'model' => $model,
         ]);
     }
+
+    public function actionView($id)
+    {
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+
+    protected function findModel($id)
+    {
+        if (($model = Usuarios::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
 
     
 } 
