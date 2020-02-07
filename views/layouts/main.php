@@ -56,7 +56,12 @@ AppAsset::register($this);
                         . Html::endForm()
                         ),
 
-                        Yii::$app->user->isGuest ? (['label' => 'Registrarse', 'url' => ['usuarios/registrar']])
+                        Yii::$app->user->isGuest 
+                        ? (['label' => 'Registrarse', 'url' => ['usuarios/registrar']])
+                        : '',
+
+                        !(Yii::$app->user->isGuest) 
+                        ? (['label' => 'Modificar Datos', 'url' => ['usuarios/update']])
                         : '',
                 ]
             ],

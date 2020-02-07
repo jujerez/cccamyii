@@ -21,7 +21,10 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
 {
 
     const SCENARIO_CREAR = 'crear';
+    const SCENARIO_MODIFICAR = 'modificar';
+
     public $password_repeat;
+
     /**
      * {@inheritdoc}
      */
@@ -36,14 +39,20 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['nombre', 'password'], 'required'],
+            [['nombre', 'password'], 'required', 'on' => self::SCENARIO_DEFAULT],
             [['nombre', 'auth_key','token_acti', 'token_clave' ], 'string', 'max' => 255],
             [['password'], 'string', 'max' => 60],
             [['nombre', 'email'], 'unique'],
             [['password_repeat'], 'required', 'on' => self::SCENARIO_CREAR],
             [['email'], 'required', 'on' => self::SCENARIO_CREAR],
             [['email'], 'email'],
-            [['password_repeat'], 'compare', 'compareAttribute' => 'password'],
+            [['password_repeat'],'required','on' => self::SCENARIO_CREAR],
+            [['password_repeat'],
+                'compare',
+                'compareAttribute' => 'password',
+                'skipOnEmpty' => false,
+                'on' => [self::SCENARIO_CREAR, self::SCENARIO_MODIFICAR],
+            ],
         ];
     }
 
@@ -109,15 +118,23 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
             return false;
         }
 
+        $security = Yii::$app->security;
+
         if ($insert) {
             if ($this->scenario === self::SCENARIO_CREAR) {
-                $security = Yii::$app->security;
                 $this->auth_key = $security->generateRandomString();
                 $this->password = $security->generatePasswordHash($this->password);
             }
+        } else {
+            if ($this->scenario === self::SCENARIO_MODIFICAR) {
+                if ($this->password === '') {
+                    $this->password = $this->getOldAttribute('password');
+                } else {
+                    $this->password = $security->generatePasswordHash($this->password);
+                }
+            }
+
+            return true;
         }
-
-        return true;
     }
-
 }
